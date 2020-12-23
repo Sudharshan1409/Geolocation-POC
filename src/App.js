@@ -1,23 +1,29 @@
 import logo from './logo.svg';
 import './App.css';
+import Geolocation from 'react-geolocation'
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <Geolocation
+render={({
+  fetchingPosition,
+  position: { coords: { latitude, longitude } = {} } = {},
+  error,
+  getCurrentPosition
+}) =>
+  <div>
+    <button onClick={getCurrentPosition}>Get Position</button>
+    {error &&
+      <div>
+        {error.message}
+      </div>}
+    <pre>
+      Latitude: {latitude}<br/>
+      Longitude: {longitude}
+    </pre>
+  </div>}
+/>
     </div>
   );
 }
